@@ -14,15 +14,18 @@ var multer = require("multer");
 upload = multer({ dest: "./uploads" });
 
 var flash = require("connect-flash");
-var mongo = require("mongodb");
-var mongoose = require("mongoose");
-var db = mongoose.connection;
-
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 
 var User = require("./models/user");
 
+/*
+var mongo = require("mongodb");
+var mongoose = require("mongoose");
+var db = mongoose.connection;
+*/
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+
+// express setpup
 var app = express();
 
 // view engine setup
@@ -34,7 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Passport設定前にstaticを設定すること
 // Passport設定後だとstaticパスについてもdeserializationが動きおかしくなる
 
-// Optional modules
+// Session
 app.use(
   session({
     secret: "secret",
@@ -43,6 +46,7 @@ app.use(
   })
 );
 
+// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -96,6 +100,7 @@ passport.use(
   })
 );
 
+// express-flash
 app.use(flash());
 
 // Database
