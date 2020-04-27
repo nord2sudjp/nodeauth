@@ -21,7 +21,7 @@ router.get("/login", function (req, res, next) {
   });
 });
 
-router.post(
+router.post( //ここではvalidationができてない。ただしfailureFlashのpassportによりvalidationのみ有効
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/users/login",
@@ -40,7 +40,7 @@ router.get("/logout", (req, res) => {
   res.redirect("/users/login");
 });
 
-router.post(
+router.post( // registerではpassportを利用していない→自動ログインはしていない
   "/register",
   upload.single("profileimage"),
   [
